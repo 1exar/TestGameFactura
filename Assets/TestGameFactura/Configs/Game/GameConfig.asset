@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246291ea84184add870962ab5d8e10c3, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  levelConfig: {fileID: 11400000, guid: be90d0184ec5f4f45a8dea05a8ae891a, type: 2}
+  levelStagePrefab: {fileID: 1723004432389866749, guid: 1ebefdd5a1310cb418cfdf7a1706c23a, type: 3}
+  stageLength: 10.5
+  enemySpawnRange: {x: 2, y: 1}
+  playerTurretConfig: {fileID: 11400000, guid: 6fb20e27a802b5342b500f6ead146df0, type: 2}
+  enemyPrefab: {fileID: 127864968607388992, guid: 2db40dbe5969cbe48b9f1e5ca49969dc, type: 3}
