@@ -21,3 +21,4 @@ MonoBehaviour:
   playerSpeed: 2
   enemyPrefab: {fileID: 2688375297309402399, guid: acf356ffbd8ec4eba88ad16e8b3d1633, type: 3}
   enemyConfig: {fileID: 11400000, guid: 8c469531e560843e7944c0878c5c7e4e, type: 2}
+  enemiesPool: {fileID: 11400000, guid: 760c5946990f8a64e9bee670423b5d9d, type: 2}

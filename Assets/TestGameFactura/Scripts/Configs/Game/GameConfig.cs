@@ -2,6 +2,7 @@
 using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Configs.Levels;
 using TestGameFactura.Scripts.Configs.Player;
+using TestGameFactura.Scripts.Pools;
 using UnityEngine;
 
 namespace TestGameFactura.Scripts.Configs.Game
@@ -23,8 +24,8 @@ namespace TestGameFactura.Scripts.Configs.Game
         [SerializeField] private float playerSpeed;
 
         [Header("Enemy Settings")]
-        [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private EnemyConfig enemyConfig;
+        [SerializeField] private EnemiesPool enemiesPool;
 
         public LevelConfig LevelConfig => levelConfig;
         public GameObject LevelStagePrefab => levelStagePrefab;
@@ -36,7 +37,7 @@ namespace TestGameFactura.Scripts.Configs.Game
         public int PlayerMaxHealth => playerMaxHealth;
 
         public EnemyConfig EnemyConfig => enemyConfig;
-        public GameObject EnemyPrefab => enemyPrefab;
+        public EnemiesPool EnemiesPool => enemiesPool;
 
     }
     

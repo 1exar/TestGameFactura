@@ -1,5 +1,6 @@
 using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Entities.Interfaces.Health;
+using TestGameFactura.Scripts.Pools;
 using TestGameFactura.Scripts.UI.Slider;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,8 +23,10 @@ namespace TestGameFactura.Scripts.Entities.Enemy
         private int _currentHp;
 
         private float _lastAttackTime;
+        
+        private EnemiesPool _pool;
 
-        public void Init(Transform playerTransform, EnemyConfig config)
+        public void Init(Transform playerTransform, EnemyConfig config, EnemiesPool pool)
         {
             _target = playerTransform;
             _config = config;
@@ -36,6 +39,8 @@ namespace TestGameFactura.Scripts.Entities.Enemy
 
             healthSlider.Init(_currentHp);
             healthSlider.gameObject.SetActive(false);
+            
+            _pool = pool;
         }
 
         private void Update()
@@ -78,7 +83,7 @@ namespace TestGameFactura.Scripts.Entities.Enemy
 
         private void Die()
         {
-            Destroy(gameObject);
+            _pool.Release(this);
         }
     }
 }

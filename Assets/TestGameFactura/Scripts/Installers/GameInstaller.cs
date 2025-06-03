@@ -6,6 +6,7 @@ using TestGameFactura.Scripts.Entities.Player;
 using TestGameFactura.Scripts.Factories;
 using TestGameFactura.Scripts.Managers.GameManagers;
 using TestGameFactura.Scripts.Managers.LevelManager;
+using TestGameFactura.Scripts.Pools;
 using Unity.AI.Navigation;
 using UnityEngine;
 using Zenject;
@@ -29,7 +30,7 @@ namespace TestGameFactura.Scripts.Installers
 
             // Factories
             Container.Bind<EnemyFactory>().AsSingle()
-                .WithArguments(gameConfig.EnemyPrefab, player, gameConfig.EnemyConfig);
+                .WithArguments(gameConfig.EnemyConfig);
             Container.Bind<BulletFactory>().AsSingle()
                 .WithArguments(gameConfig.PlayerTurretConfig.BulletPrefab);
 
@@ -53,6 +54,10 @@ namespace TestGameFactura.Scripts.Installers
             
             //NavMesh
             Container.Bind<NavMeshSurface>().FromInstance(navMeshSurface).AsSingle();
+            
+            //Pools 
+            Container.Bind<EnemiesPool>().FromInstance(gameConfig.EnemiesPool).AsSingle();
+            gameConfig.EnemiesPool.Init(Container);
         }
     } 
 }

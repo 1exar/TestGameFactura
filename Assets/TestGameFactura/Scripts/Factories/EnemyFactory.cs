@@ -1,6 +1,7 @@
 ﻿using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Entities.Enemy;
 using TestGameFactura.Scripts.Entities.Player;
+using TestGameFactura.Scripts.Pools;
 using UnityEngine;
 using Zenject;
 
@@ -8,24 +9,26 @@ namespace TestGameFactura.Scripts.Factories
 {
     public class EnemyFactory
     {
-        private readonly DiContainer _container;
-        private readonly GameObject _enemyPrefab;
         private readonly PlayerController _player;
         private readonly EnemyConfig _enemyConfig;
+        private readonly EnemiesPool _enemiesPool;
 
-        public EnemyFactory(DiContainer container, GameObject enemyPrefab, PlayerController player, EnemyConfig config)
+        public EnemyFactory(PlayerController player, EnemyConfig config, EnemiesPool pool)
         {
-            _container = container;
-            _enemyPrefab = enemyPrefab;
             _player = player;
             _enemyConfig = config;
+            _enemiesPool = pool;
+            
+            pool.ClearPool();
         }
 
         public void Create(Vector3 position)
         {
-            var enemy = _container.InstantiatePrefab(_enemyPrefab, position, _enemyPrefab.transform.rotation, null)
-                .GetComponent<EnemyController>();
-            enemy.Init(_player.transform, _enemyConfig);
+            var enemy = _enemiesPool.Get();
+            
+            enemy.transform.position = position;
+            
+            enemy.Init(_player.transform, _enemyConfig, _enemiesPool);
         }
     }
 }

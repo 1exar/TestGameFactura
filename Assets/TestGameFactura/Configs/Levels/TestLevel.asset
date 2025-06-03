@@ -13,13 +13,5 @@ MonoBehaviour:
   m_Name: TestLevel
   m_EditorClassIdentifier: 
   stages:
-  - enemiesCount: 10
-  - enemiesCount: 10
-  - enemiesCount: 10
-  - enemiesCount: 10
-  - enemiesCount: 10
-  - enemiesCount: 10
-  - enemiesCount: 10
-  - enemiesCount: 10
-  - enemiesCount: 10
-  - enemiesCount: 10
+  - enemiesCount: 1
+  - enemiesCount: 2

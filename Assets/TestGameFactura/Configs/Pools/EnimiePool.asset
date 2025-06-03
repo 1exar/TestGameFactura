@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37e57e51d2314251a450bf5151f2b5f7, type: 3}
-  m_Name: EnemyConfig
+  m_Script: {fileID: 11500000, guid: c2b02b056df445dc964a162d50a036ab, type: 3}
+  m_Name: EnimiePool
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  damage: 10
-  aggroDistance: 6
-  maxHealth: 20
-  stoppingDinstance: 0.8
+  maxSize: 100
+  behaviour: {fileID: 1569766097731886864, guid: acf356ffbd8ec4eba88ad16e8b3d1633, type: 3}
