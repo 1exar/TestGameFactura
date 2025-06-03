@@ -5,7 +5,6 @@ namespace TestGameFactura.Scripts.Configs.Player
     [CreateAssetMenu(fileName = "PlayerTurretConfig", menuName = "Configs/PlayerTurret")]
     public class PlayerTurretConfig : ScriptableObject
     {
-        [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private float yawLimit;
         [SerializeField] private float rotationSpeed;
         [SerializeField] private float fireCooldown;
@@ -14,7 +13,6 @@ namespace TestGameFactura.Scripts.Configs.Player
         [SerializeField] private int bulletSpeed;
         [SerializeField] private int bulletLifeTime;
         
-        public GameObject BulletPrefab => bulletPrefab;
         public float YawLimit => yawLimit;
         public float RotationSpeed => rotationSpeed;
         public float FireCooldown => fireCooldown;

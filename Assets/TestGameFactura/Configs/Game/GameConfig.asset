@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelConfig: {fileID: 11400000, guid: be90d0184ec5f4f45a8dea05a8ae891a, type: 2}
   playerTurretConfig: {fileID: 11400000, guid: 6fb20e27a802b5342b500f6ead146df0, type: 2}
+  bulletPool: {fileID: 11400000, guid: dcf965eb5b435430b9ba045d625918ee, type: 2}
   playerMaxHealth: 120
   playerSpeed: 2
   enemyConfig: {fileID: 11400000, guid: 8c469531e560843e7944c0878c5c7e4e, type: 2}
-  enemiesPoolDi: {fileID: 11400000, guid: 760c5946990f8a64e9bee670423b5d9d, type: 2}
+  enemiesPool: {fileID: 11400000, guid: 760c5946990f8a64e9bee670423b5d9d, type: 2}
   soundConfig: {fileID: 11400000, guid: fa94d0826509a4141a747b8194873902, type: 2}
   soundPool: {fileID: 11400000, guid: 4ef0cdb609c65d24e9dd31f991770fe4, type: 2}

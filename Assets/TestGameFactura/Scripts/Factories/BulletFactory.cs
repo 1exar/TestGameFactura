@@ -1,5 +1,6 @@
 using TestGameFactura.Scripts.Configs.Player;
 using TestGameFactura.Scripts.Entities.Player.Turret;
+using TestGameFactura.Scripts.Pools.Bullet;
 using UnityEngine;
 using Zenject;
 
@@ -7,23 +8,21 @@ namespace TestGameFactura.Scripts.Factories
 {
     public class BulletFactory
     {
-        private readonly GameObject _bulletPrefab;
-        private readonly DiContainer _container;
-        
         private readonly PlayerTurretConfig _config;
+        
+        private readonly BulletPool _bulletPool;
 
-        public BulletFactory(DiContainer container, PlayerTurretConfig config)
+        public BulletFactory(PlayerTurretConfig config, BulletPool bulletPool)
         {
-            _bulletPrefab = config.BulletPrefab;
-            _container = container;
             _config = config;
+            _bulletPool = bulletPool;
         }
 
         public void Create(Vector3 spawnPosition, Vector3 direction)
         {
-            var bullet = _container.InstantiatePrefab(_bulletPrefab, spawnPosition, _bulletPrefab.transform.rotation, null).GetComponent<Bullet>();
-            bullet.Init(direction, _config);
-
+            var bullet = _bulletPool.Get();
+            bullet.transform.position = spawnPosition;
+            bullet.Init(direction, _config, _bulletPool);
         }
     }
 }

@@ -1,5 +1,8 @@
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using TestGameFactura.Scripts.Configs.Player;
 using TestGameFactura.Scripts.Entities.Interfaces.Health;
+using TestGameFactura.Scripts.Pools.Bullet;
 using UnityEngine;
 
 namespace TestGameFactura.Scripts.Entities.Player.Turret
@@ -9,15 +12,24 @@ namespace TestGameFactura.Scripts.Entities.Player.Turret
         private int _speed;
         private int _damage;
         private Vector3 _direction;
-
-        public void Init(Vector3 direction, PlayerTurretConfig config)
+        private BulletPool _bulletPool;
+        
+        public void Init(Vector3 direction, PlayerTurretConfig config, BulletPool bulletPool)
         {
             _direction = transform.position - direction;
             _damage = config.Damage;    
             _speed = config.BulletSpeed;
-            Destroy(gameObject, config.BulletLifeTime);
+            _bulletPool = bulletPool;
+            
+            WaitBeforeRelease(config.BulletLifeTime);
         }
 
+        private async Task WaitBeforeRelease(float lifetime)
+        {
+            await UniTask.WaitForSeconds(lifetime);
+            _bulletPool.Release(this);
+        }
+        
         private void OnCollisionEnter(Collision other)
         {
             if (other.transform.TryGetComponent(out IHealth health))

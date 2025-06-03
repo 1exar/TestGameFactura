@@ -4,6 +4,7 @@ using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Entities.Interfaces.Health;
 using TestGameFactura.Scripts.Managers.SoundManager;
 using TestGameFactura.Scripts.Pools;
+using TestGameFactura.Scripts.Pools.Enemy;
 using TestGameFactura.Scripts.UI.Slider;
 using UnityEngine;
 using UnityEngine.AI;

@@ -10,7 +10,8 @@ using TestGameFactura.Scripts.Managers.GameManagers;
 using TestGameFactura.Scripts.Managers.LevelManager;
 using TestGameFactura.Scripts.Managers.SoundManager;
 using TestGameFactura.Scripts.Managers.UIManager;
-using TestGameFactura.Scripts.Pools;
+using TestGameFactura.Scripts.Pools.Bullet;
+using TestGameFactura.Scripts.Pools.Enemy;
 using TestGameFactura.Scripts.Pools.Sound;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -72,10 +73,12 @@ namespace TestGameFactura.Scripts.Installers
             //Pools 
             Container.Bind<EnemiesPool>().FromInstance(gameConfig.EnemiesPool).AsSingle();
             gameConfig.EnemiesPool.Init(Container);
+            Container.Bind<SoundPool>().FromInstance(gameConfig.SoundPool).AsSingle();
+            Container.Bind<BulletPool>().FromInstance(gameConfig.BulletPool).AsSingle();
+
             
             //Sound
             Container.Bind<SoundConfig>().FromInstance(gameConfig.SoundConfig).AsSingle();
-            Container.Bind<SoundPool>().FromInstance(gameConfig.SoundPool).AsSingle();
             Container.Bind<ISoundManager>().To<SoundManager>().FromInstance(soundManager).AsSingle();
         }
     } 

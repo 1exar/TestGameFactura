@@ -5,6 +5,7 @@ using TestGameFactura.Scripts.Entities.Interfaces.Health;
 using TestGameFactura.Scripts.Entities.Player;
 using TestGameFactura.Scripts.Managers.UIManager;
 using TestGameFactura.Scripts.Pools;
+using TestGameFactura.Scripts.Pools.Enemy;
 using UnityEngine;
 using Zenject;
 

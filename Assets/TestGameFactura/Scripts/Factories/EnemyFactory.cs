@@ -1,6 +1,7 @@
 ﻿using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Entities.Player;
 using TestGameFactura.Scripts.Pools;
+using TestGameFactura.Scripts.Pools.Enemy;
 using UnityEngine;
 
 namespace TestGameFactura.Scripts.Factories

@@ -1,9 +1,9 @@
 ﻿using TestGameFactura.Scripts.Entities.Enemy;
 using UnityEngine;
 
-namespace TestGameFactura.Scripts.Pools
+namespace TestGameFactura.Scripts.Pools.Enemy
 {
-    [CreateAssetMenu(menuName = "Pools/EnemiesPool")]
+    [CreateAssetMenu(menuName = "Pools/Enemies Pool")]
     public class EnemiesPool : BasePoolDI<EnemyController>
     {
         

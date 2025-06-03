@@ -4,6 +4,8 @@ using TestGameFactura.Scripts.Configs.Levels;
 using TestGameFactura.Scripts.Configs.Player;
 using TestGameFactura.Scripts.Configs.Sound;
 using TestGameFactura.Scripts.Pools;
+using TestGameFactura.Scripts.Pools.Bullet;
+using TestGameFactura.Scripts.Pools.Enemy;
 using TestGameFactura.Scripts.Pools.Sound;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -20,6 +22,7 @@ namespace TestGameFactura.Scripts.Configs.Game
 
         [Header("Player Settings")]
         [SerializeField] private PlayerTurretConfig playerTurretConfig;
+        [SerializeField] private BulletPool bulletPool;
         [SerializeField] private int playerMaxHealth;
         [SerializeField] private float playerSpeed;
 
@@ -34,6 +37,7 @@ namespace TestGameFactura.Scripts.Configs.Game
         public LevelConfig LevelConfig => levelConfig;
 
         public PlayerTurretConfig PlayerTurretConfig => playerTurretConfig;
+        public BulletPool BulletPool => bulletPool;
         public float PlayerSpeed => playerSpeed;
         public int PlayerMaxHealth => playerMaxHealth;
 
