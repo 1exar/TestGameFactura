@@ -240,8 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c240f22528142ff952c7128d3976cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxValue: 100
   redImage: {fileID: 6376442951380995423}
   yellowImage: {fileID: 8691693901055169810}
-  yellowDelay: 2
-  yellowTweenDuration: 0.5
+  yellowDelay: 0.3
+  yellowTweenDuration: 0.2

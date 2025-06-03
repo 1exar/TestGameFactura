@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Entities.Interfaces.Health;
 using TestGameFactura.Scripts.Pools;
@@ -13,6 +15,7 @@ namespace TestGameFactura.Scripts.Entities.Enemy
     {
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private CustomSlider healthSlider;
+        [SerializeField] private Animator animator;
         [Inject] private IHealth _playerHealth;
         
         private Transform _target;
@@ -23,6 +26,8 @@ namespace TestGameFactura.Scripts.Entities.Enemy
         private int _currentHp;
 
         private float _lastAttackTime;
+        
+        private bool _isDead;
         
         private EnemiesPool _pool;
 
@@ -45,7 +50,7 @@ namespace TestGameFactura.Scripts.Entities.Enemy
 
         private void Update()
         {
-            if (_target == null || _config == null || agent == null) return;
+            if (_target == null || _config == null || agent == null || _isDead) return;
 
             float distanceToPlayer = Vector3.Distance(transform.position, _target.position - Vector3.forward);
             if (distanceToPlayer > _config.AggroDistance)
@@ -60,11 +65,15 @@ namespace TestGameFactura.Scripts.Entities.Enemy
                 }
                 else
                 {
+                    if(_currentHp > 0)
+                        animator.SetTrigger("Run");
                     agent.SetDestination(_target.position - Vector3.forward);
                 }
             }
             else
             {
+                if(_currentHp > 0)
+                    animator.SetTrigger("Run");
                 agent.SetDestination(_target.position - Vector3.forward);
             }
         }
@@ -72,17 +81,26 @@ namespace TestGameFactura.Scripts.Entities.Enemy
 
         public void TakeDamage(int dmg)
         {
+            if(_isDead) return;
             healthSlider.gameObject.SetActive(true);
             _currentHp -= dmg;
             healthSlider.SetValue(_currentHp);
             if (_currentHp <= 0)
             {
-                Die();
+                Die(true);
             }
         }
 
-        private void Die()
+        private async Task Die(bool useAnimation = false)
         {
+            _isDead = true;
+
+            if (useAnimation)
+            {
+                animator.SetTrigger("Death");
+                await UniTask.WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
+
+            }
             _pool.Release(this);
         }
     }
