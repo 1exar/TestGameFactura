@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: TestLevel
   m_EditorClassIdentifier: 
   stages:
-  - enemiesCount: 1
-  - enemiesCount: 2
+  - enemiesCount: 6
+  - enemiesCount: 10
+  - enemiesCount: 15
+  - enemiesCount: 20
+  - enemiesCount: 0
+  levelStagePrefab: {fileID: 1723004432389866749, guid: 1ebefdd5a1310cb418cfdf7a1706c23a, type: 3}
+  stageLength: 15.95
+  enemySpawnRange: {x: 2, y: 2}

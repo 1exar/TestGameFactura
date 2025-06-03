@@ -6,6 +6,7 @@ using TestGameFactura.Scripts.Entities.Player;
 using TestGameFactura.Scripts.Factories;
 using TestGameFactura.Scripts.Managers.GameManagers;
 using TestGameFactura.Scripts.Managers.LevelManager;
+using TestGameFactura.Scripts.Managers.UIManager;
 using TestGameFactura.Scripts.Pools;
 using Unity.AI.Navigation;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace TestGameFactura.Scripts.Installers
 {
     public class GameInstaller : MonoInstaller
     {
+        [SerializeField] private UIManager uiManager;
         [SerializeField] private PlayerController player;
         [SerializeField] private GameConfig gameConfig;
         [SerializeField] private Transform levelParent;
@@ -39,9 +41,9 @@ namespace TestGameFactura.Scripts.Installers
             Container.Bind<IInitializable>().To<LevelManager>().FromResolve();
 
             // Prefabs
-            Container.Bind<GameObject>().WithId("StagePrefab").FromInstance(gameConfig.LevelStagePrefab);
-            Container.Bind<float>().WithId("StageLength").FromInstance(gameConfig.StageLength);
-            Container.Bind<Vector2>().WithId("SpawnRange").FromInstance(gameConfig.EnemySpawnRange);
+            Container.Bind<GameObject>().WithId("StagePrefab").FromInstance(gameConfig.LevelConfig.LevelStagePrefab);
+            Container.Bind<float>().WithId("StageLength").FromInstance(gameConfig.LevelConfig.StageLength);
+            Container.Bind<Vector2>().WithId("SpawnRange").FromInstance(gameConfig.LevelConfig.EnemySpawnRange);
             Container.Bind<Transform>().WithId("StageParent").FromInstance(levelParent);
             
             // Player
@@ -54,6 +56,9 @@ namespace TestGameFactura.Scripts.Installers
             
             //NavMesh
             Container.Bind<NavMeshSurface>().FromInstance(navMeshSurface).AsSingle();
+            
+            //UIManager
+            Container.Bind<IUIManager>().FromInstance(uiManager).AsSingle();
             
             //Pools 
             Container.Bind<EnemiesPool>().FromInstance(gameConfig.EnemiesPool).AsSingle();

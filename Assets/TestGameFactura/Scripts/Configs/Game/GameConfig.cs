@@ -14,9 +14,6 @@ namespace TestGameFactura.Scripts.Configs.Game
         
         [Header("Level Settings")]
         [SerializeField] private LevelConfig levelConfig;
-        [SerializeField] private GameObject levelStagePrefab;
-        [SerializeField] private float stageLength;
-        [SerializeField] private Vector2 enemySpawnRange;
 
         [Header("Player Settings")]
         [SerializeField] private PlayerTurretConfig playerTurretConfig;
@@ -28,9 +25,6 @@ namespace TestGameFactura.Scripts.Configs.Game
         [SerializeField] private EnemiesPool enemiesPool;
 
         public LevelConfig LevelConfig => levelConfig;
-        public GameObject LevelStagePrefab => levelStagePrefab;
-        public float StageLength => stageLength;
-        public Vector2 EnemySpawnRange => enemySpawnRange;
 
         public PlayerTurretConfig PlayerTurretConfig => playerTurretConfig;
         public float PlayerSpeed => playerSpeed;

@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using TestGameFactura.Scripts.Configs.Levels;
 using TestGameFactura.Scripts.Factories;
+using TestGameFactura.Scripts.Managers.UIManager;
 using Unity.AI.Navigation;
 using UnityEngine;
 using Zenject;
@@ -22,6 +23,8 @@ namespace TestGameFactura.Scripts.Managers.LevelManager
         private readonly NavMeshSurface _navMeshSurface;
         
         private readonly List<GameObject> _stageObjects = new();
+        
+        private readonly IUIManager _uiManager;
 
         [Inject]
         public LevelManager(
@@ -31,7 +34,9 @@ namespace TestGameFactura.Scripts.Managers.LevelManager
             [Inject(Id = "StageParent")] Transform stageParent,
             [Inject(Id = "StageLength")] float stageLength,
             [Inject(Id = "SpawnRange")] Vector2 spawnRange,
-            NavMeshSurface navMeshSurface)
+            NavMeshSurface navMeshSurface,
+            IUIManager uiManager)
+            
         {
             _levelConfig = levelConfig;
             _enemyFactory = enemyFactory;
@@ -40,14 +45,15 @@ namespace TestGameFactura.Scripts.Managers.LevelManager
             _stageLength = stageLength;
             _spawnRange = spawnRange;
             _navMeshSurface = navMeshSurface;
+            _uiManager = uiManager;
         }
 
         public void Initialize()
         {
             InitializeAsync().Forget();
         }
-
-        private async UniTaskVoid InitializeAsync()
+        
+        public async UniTaskVoid InitializeAsync()
         {
             await LoadLevelAsync(_levelConfig);
         }
@@ -58,6 +64,7 @@ namespace TestGameFactura.Scripts.Managers.LevelManager
             var stageData = await GenerateLevelAsync(config.Stages);
             _navMeshSurface.BuildNavMesh();
             await SpawnAllEnemiesAsync(stageData);
+            _uiManager.ShowTransition(true);
         }
 
         private void ClearLevel()

@@ -1,7 +1,10 @@
+using System.Threading.Tasks;
+
 namespace TestGameFactura.Scripts.Entities.Interfaces.Health
 {
     public interface IHealth
     {
-        public void TakeDamage(int damage);
+        public Task TakeDamage(int damage);
+        public void Restore();
     }
 }

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5837841749598895359, guid: 7fc8666030aff3e46bdf205955c8918c, type: 3}
   yawLimit: 60
-  rotationSpeed: 1000
-  fireCooldown: 0.5
+  rotationSpeed: 800
+  fireCooldown: 0.3
   damage: 12
   bulletSpeed: 2
   bulletLifeTime: 3

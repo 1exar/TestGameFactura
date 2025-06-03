@@ -24,6 +24,7 @@ namespace TestGameFactura.Scripts.UI.Slider
         public void Init(int maxHealth)
         {
             _maxValue = maxHealth;
+            _currentValue = maxHealth;
         }
         
         public void SetValue(int value)
@@ -32,6 +33,7 @@ namespace TestGameFactura.Scripts.UI.Slider
             _currentValue = value;
 
             float fillAmount = (float)_currentValue / _maxValue;
+            fillAmount = Mathf.Clamp01(fillAmount);
 
             redImage.fillAmount = fillAmount;
 
@@ -45,7 +47,7 @@ namespace TestGameFactura.Scripts.UI.Slider
         {
             yield return new WaitForSeconds(yellowDelay);
 
-            _yellowTween = yellowImage.DOFillAmount(targetFill, yellowTweenDuration).SetEase(Ease.OutQuad);
+            _yellowTween = yellowImage.DOFillAmount(targetFill, yellowTweenDuration).SetEase(Ease.Linear);
         }
     }
 }

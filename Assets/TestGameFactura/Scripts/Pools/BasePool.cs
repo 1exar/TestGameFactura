@@ -12,22 +12,25 @@ namespace TestGameFactura.Scripts.Pools
         [SerializeField] private int maxSize;
         [SerializeField] private T behaviour;
         
-        public Action OnObjectReleased;
-        
         private DiContainer _container;
         private int _currentSize;
         private Queue<T> _pool = new();
+        private List<T> _activeBehaviours = new();
 
+        public Action OnObjectReleased;
+        public List<T> ActiveBehaviours => _activeBehaviours;
+        
         public void Init(DiContainer container)
         {
             _container = container;
         }
         
-        public int CurrentSize => _currentSize;
+        public int CurrentSize => _activeBehaviours.Count;
         
         public void ClearPool()
         {
             _pool.Clear();
+            _activeBehaviours.Clear();
             _currentSize = 0;
         }
 
@@ -37,6 +40,7 @@ namespace TestGameFactura.Scripts.Pools
             if (_pool.Count > 0)
             {
                 obj = _pool.Dequeue();
+                _activeBehaviours.Add(obj);
             }
             else
             {
@@ -49,6 +53,7 @@ namespace TestGameFactura.Scripts.Pools
                 {
                     _currentSize++;
                     obj = _container.InstantiatePrefab(behaviour).GetComponent<T>();
+                    _activeBehaviours.Add(obj);
                 }
             }
             
@@ -57,20 +62,24 @@ namespace TestGameFactura.Scripts.Pools
             return obj;
         }
 
-        public void Release(T obj)
+        public void Release(T obj, bool silent = false)
         {
             if (_pool.Count > maxSize)
             {
+                if(_activeBehaviours.Contains(obj))
+                    _activeBehaviours.Remove(obj);
                 Destroy(obj);
             }
             else
             {
                 _currentSize--;
                 obj.gameObject.SetActive(false);
+                _activeBehaviours.Remove(obj);
                 _pool.Enqueue(obj);
             }
             
-            OnObjectReleased?.Invoke();
+            if(silent == false)
+                OnObjectReleased?.Invoke();
         }
     }
 }

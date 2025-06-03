@@ -11,6 +11,8 @@ namespace TestGameFactura.Scripts.Entities.Player.Turret
         [SerializeField] private Transform firePoint;
         [SerializeField] private Transform bulletSpawnPoint;
 
+        [SerializeField] private LineRenderer aimLine;
+        
         private PlayerTurretConfig _config;
         private float _currentYaw;
         private float _lastFireTime;
@@ -26,6 +28,9 @@ namespace TestGameFactura.Scripts.Entities.Player.Turret
 
         private void Update()
         {
+            aimLine.SetPosition(0, bulletSpawnPoint.position);
+            aimLine.SetPosition(1, firePoint.position);
+            
             HandleRotation();
             HandleShooting();
         }
