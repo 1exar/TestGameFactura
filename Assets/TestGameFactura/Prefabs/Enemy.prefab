@@ -685,7 +685,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 796208413114833596, guid: 45fed49de35484099a21cd70d352d536, type: 3}
       propertyPath: yellowDelay
-      value: 0.2
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 796208413114833596, guid: 45fed49de35484099a21cd70d352d536, type: 3}
+      propertyPath: yellowTweenDuration
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5600455455777377549, guid: 45fed49de35484099a21cd70d352d536, type: 3}
       propertyPath: m_Name

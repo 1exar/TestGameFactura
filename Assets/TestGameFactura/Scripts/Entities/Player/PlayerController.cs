@@ -115,7 +115,7 @@ namespace TestGameFactura.Scripts.Entities.Player
             }
         }
 
-        public async Task TakeDamage(int damage)
+        public async void TakeDamage(int damage)
         {
             _health -= damage;
             if (_health <= 0)

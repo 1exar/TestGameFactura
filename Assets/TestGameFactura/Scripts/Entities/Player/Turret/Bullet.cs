@@ -9,6 +9,8 @@ namespace TestGameFactura.Scripts.Entities.Player.Turret
 {
     public class Bullet : MonoBehaviour
     {
+        [SerializeField] private TrailRenderer _trailRenderer;
+        
         private int _speed;
         private int _damage;
         private Vector3 _direction;
@@ -16,6 +18,8 @@ namespace TestGameFactura.Scripts.Entities.Player.Turret
         
         public void Init(Vector3 direction, PlayerTurretConfig config, BulletPool bulletPool)
         {
+            _trailRenderer.Clear();
+            
             _direction = transform.position - direction;
             _damage = config.Damage;    
             _speed = config.BulletSpeed;

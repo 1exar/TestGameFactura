@@ -104,11 +104,12 @@ namespace TestGameFactura.Scripts.Managers.GameManagers
             _player.StartMoving();
         }
 
-        private void OnLose()
+        private async void OnLose()
         {
             if(_isGameRun == false) return;
             _isGameRun = false;
             _player.StopMoving();
+            await UniTask.WaitForSeconds(1);
             _uiManager.ShowEndGamePanel(false);
         }
 

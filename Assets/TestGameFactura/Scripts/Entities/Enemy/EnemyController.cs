@@ -125,7 +125,7 @@ namespace TestGameFactura.Scripts.Entities.Enemy
         }
         
 
-        public async Task TakeDamage(int dmg)
+        public async void TakeDamage(int dmg)
         {
             if(_isDead) return;
             healthSlider.gameObject.SetActive(true);
@@ -150,7 +150,7 @@ namespace TestGameFactura.Scripts.Entities.Enemy
         {
         }
         
-        private async Task Die(bool useAnimation = false)
+        private async void Die(bool useAnimation = false)
         {
             agent.isStopped = true;
             _isDead = true;

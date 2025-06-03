@@ -47,7 +47,7 @@ namespace TestGameFactura.Scripts.Entities.Player.Turret
             if (Input.GetMouseButton(0))
             {
                 float mouseX = Input.GetAxis("Mouse X");
-                _currentYaw += mouseX * _config.RotationSpeed * Time.deltaTime;
+                _currentYaw += mouseX * _config.RotationSpeed * Time.fixedDeltaTime;
                 _currentYaw = Mathf.Clamp(_currentYaw, -_config.YawLimit, _config.YawLimit);
 
                 barrelPivot.localRotation = Quaternion.Euler(-90, _currentYaw, 180);

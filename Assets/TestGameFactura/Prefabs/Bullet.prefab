@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6386cf7653364f7db8466b153e86a488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _trailRenderer: {fileID: 5027233003258971076}
 --- !u!135 &9075798255816703894
 SphereCollider:
   m_ObjectHideFlags: 0

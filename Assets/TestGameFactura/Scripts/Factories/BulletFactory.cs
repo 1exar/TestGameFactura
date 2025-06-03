@@ -16,6 +16,7 @@ namespace TestGameFactura.Scripts.Factories
         {
             _config = config;
             _bulletPool = bulletPool;
+            bulletPool.ClearPool();
         }
 
         public void Create(Vector3 spawnPosition, Vector3 direction)
