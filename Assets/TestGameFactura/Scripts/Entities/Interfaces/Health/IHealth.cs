@@ -6,5 +6,6 @@ namespace TestGameFactura.Scripts.Entities.Interfaces.Health
     {
         public Task TakeDamage(int damage);
         public void Restore();
+        public int Health { get; }
     }
 }

@@ -16,29 +16,49 @@ namespace TestGameFactura.Scripts.Managers.GameManagers
         private readonly EnemiesPool _enemiesPool;
         private readonly IUIManager _uiManager;
         private readonly LevelManager.LevelManager _levelManager;
+        private readonly CameraManager.CameraManager _cameraManager;
         private readonly IHealth _playerHealth;
+
+
+        private bool _isGameRun;
         
         [Inject]
-        public GameManager(PlayerController player, EnemiesPool enemiesPool, IUIManager uiManager, LevelManager.LevelManager levelManager, IHealth playerHealth)
+        public GameManager(PlayerController player, 
+            EnemiesPool enemiesPool, 
+            IUIManager uiManager, 
+            LevelManager.LevelManager levelManager, 
+            IHealth playerHealth,
+            CameraManager.CameraManager cameraManager)
         {
             _player = player;
+            
             _enemiesPool = enemiesPool;
 
             _uiManager = uiManager;
-            _uiManager.OnClickRestart += RestartGame;
-            
+
             _levelManager = levelManager;
             
-            enemiesPool.OnObjectReleased += CheckLiveEnemies;
             
             _playerHealth = playerHealth;
+            
+            _cameraManager = cameraManager;
+            
+            _uiManager.OnClickRestart += RestartGame;
+            enemiesPool.OnObjectReleased += CheckLiveEnemies;
         }
         
         private void CheckLiveEnemies()
         {
             if (_enemiesPool.CurrentSize == 0)
             {
-                OnWin();
+                if (_playerHealth.Health > 0)
+                {
+                    OnWin();
+                }
+                else
+                {
+                    OnLose();
+                }
             }
         }
 
@@ -52,7 +72,7 @@ namespace TestGameFactura.Scripts.Managers.GameManagers
         private async void RestartGame()
         {
             _uiManager.ShowTransition(false);
-            await UniTask.Delay(TimeSpan.FromSeconds(3));
+            await UniTask.WaitForSeconds(3);
             _player.MoveToStartPosition();
             _levelManager.InitializeAsync();
 
@@ -73,23 +93,28 @@ namespace TestGameFactura.Scripts.Managers.GameManagers
         private async UniTaskVoid WaitForStart()
         {
             await UniTask.WaitUntil(() => Input.GetMouseButton(0));
-
+            _cameraManager.AnimateCamera();
             StartGame();
         }
 
         private void StartGame()
         {
+            _isGameRun = true;
             _player.StartMoving();
         }
 
         private void OnLose()
         {
+            if(_isGameRun == false) return;
+            _isGameRun = false;
             _player.StopMoving();
             _uiManager.ShowEndGamePanel(false);
         }
 
         private void OnWin()
         {
+            if(_isGameRun == false) return;
+            _isGameRun = false;
             _player.StopMoving();
             _uiManager.ShowEndGamePanel(true);
         }

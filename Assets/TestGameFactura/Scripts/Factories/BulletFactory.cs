@@ -12,9 +12,9 @@ namespace TestGameFactura.Scripts.Factories
         
         private readonly PlayerTurretConfig _config;
 
-        public BulletFactory(GameObject bulletPrefab, DiContainer container, PlayerTurretConfig config)
+        public BulletFactory(DiContainer container, PlayerTurretConfig config)
         {
-            _bulletPrefab = bulletPrefab;
+            _bulletPrefab = config.BulletPrefab;
             _container = container;
             _config = config;
         }

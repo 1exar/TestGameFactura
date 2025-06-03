@@ -1,5 +1,6 @@
 ﻿using TestGameFactura.Scripts.Configs.Player;
 using TestGameFactura.Scripts.Factories;
+using TestGameFactura.Scripts.Managers.SoundManager;
 using UnityEngine;
 using Zenject;
 
@@ -18,12 +19,18 @@ namespace TestGameFactura.Scripts.Entities.Player.Turret
         private float _lastFireTime;
 
         private BulletFactory _bulletFactory;
+        private ISoundManager _soundManager;
+
+        private bool _canShoot;
+
+        public void SetShootAvaiblity(bool canShoot) => _canShoot = canShoot;
         
         [Inject]
-        public void Construct(PlayerTurretConfig config, BulletFactory bulletFactory)
+        public void Construct(PlayerTurretConfig config, BulletFactory bulletFactory, ISoundManager soundManager)
         {
             _config = config;
             _bulletFactory = bulletFactory;
+            _soundManager = soundManager;
         }
 
         private void Update()
@@ -49,7 +56,7 @@ namespace TestGameFactura.Scripts.Entities.Player.Turret
 
         private void HandleShooting()
         {
-            if (Input.GetMouseButton(0) && Time.time >= _lastFireTime + _config.FireCooldown)
+            if (Input.GetMouseButton(0) && Time.time >= _lastFireTime + _config.FireCooldown && _canShoot)
             {
                 Shoot();
                 _lastFireTime = Time.time;
@@ -58,6 +65,7 @@ namespace TestGameFactura.Scripts.Entities.Player.Turret
 
         private void Shoot()
         {
+            _soundManager.PlayShootSound();
             _bulletFactory.Create(bulletSpawnPoint.position,firePoint.position);
         }
 

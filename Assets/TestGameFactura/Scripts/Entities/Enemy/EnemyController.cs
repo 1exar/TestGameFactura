@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Entities.Interfaces.Health;
+using TestGameFactura.Scripts.Managers.SoundManager;
 using TestGameFactura.Scripts.Pools;
 using TestGameFactura.Scripts.UI.Slider;
 using UnityEngine;
@@ -22,10 +23,14 @@ namespace TestGameFactura.Scripts.Entities.Enemy
         [SerializeField] private GameObject damageEffect;
         
         [Inject] private IHealth _playerHealth;
+        [Inject] private ISoundManager _soundManager;
+        
+        public int Health => _currentHp;
 
         private Material _defaultMaterial;
         
         private Transform _target;
+        
         private EnemyConfig _config;
 
         private int _damage;
@@ -44,7 +49,8 @@ namespace TestGameFactura.Scripts.Entities.Enemy
         {
             collider.enabled = true;
             _isDead = false;
-            
+            damageEffect.SetActive(false);
+
             _defaultMaterial = renderer.material;
             
             _target = playerTransform;
@@ -59,9 +65,9 @@ namespace TestGameFactura.Scripts.Entities.Enemy
             healthSlider.Init(_currentHp);
             healthSlider.gameObject.SetActive(false);
             
-            SetState(EnemyState.Idle);
-            
             _pool = pool;
+            
+            SetState(EnemyState.Idle);
         }
 
         private void SetState(EnemyState newState)
@@ -132,32 +138,31 @@ namespace TestGameFactura.Scripts.Entities.Enemy
             {
                 healthSlider.SetValue(_currentHp);
             }
-            
+            _soundManager.PlayHitSound();
+
             renderer.material = damageMaterial;
-            damageEffect.SetActive(true);
             await UniTask.WaitForSeconds(.15f);
             renderer.material = _defaultMaterial;
-            await UniTask.WaitForSeconds(.15f);
-            damageEffect.SetActive(false);
-            
         }
 
         public void Restore()
         {
         }
-
+        
         private async Task Die(bool useAnimation = false)
         {
+            agent.isStopped = true;
             _isDead = true;
 
             collider.enabled = false;
             
             if (useAnimation)
             {
-                SetState(EnemyState.Death);
-                await UniTask.WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
-
+                SetState(EnemyState.Death);         
+                damageEffect.SetActive(true);
+                await UniTask.WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length + 1);
             }
+            
             _pool.Release(this);
         }
     }

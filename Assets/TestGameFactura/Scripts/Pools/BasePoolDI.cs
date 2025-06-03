@@ -6,7 +6,7 @@ using Zenject;
 namespace TestGameFactura.Scripts.Pools
 {
     [Serializable]
-    public abstract class BasePool<T> : ScriptableObject where T : MonoBehaviour
+    public abstract class BasePoolDI<T> : ScriptableObject where T : MonoBehaviour
     {
 
         [SerializeField] private int maxSize;

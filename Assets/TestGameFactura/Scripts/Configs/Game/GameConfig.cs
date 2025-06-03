@@ -2,8 +2,11 @@
 using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Configs.Levels;
 using TestGameFactura.Scripts.Configs.Player;
+using TestGameFactura.Scripts.Configs.Sound;
 using TestGameFactura.Scripts.Pools;
+using TestGameFactura.Scripts.Pools.Sound;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TestGameFactura.Scripts.Configs.Game
 {
@@ -22,8 +25,12 @@ namespace TestGameFactura.Scripts.Configs.Game
 
         [Header("Enemy Settings")]
         [SerializeField] private EnemyConfig enemyConfig;
-        [SerializeField] private EnemiesPool enemiesPool;
+        [FormerlySerializedAs("enemiesPoolDi")] [SerializeField] private EnemiesPool enemiesPool;
 
+        [Header("Sound Config")]
+        [SerializeField] private SoundConfig soundConfig;
+        [SerializeField] private SoundPool soundPool;
+        
         public LevelConfig LevelConfig => levelConfig;
 
         public PlayerTurretConfig PlayerTurretConfig => playerTurretConfig;
@@ -32,6 +39,9 @@ namespace TestGameFactura.Scripts.Configs.Game
 
         public EnemyConfig EnemyConfig => enemyConfig;
         public EnemiesPool EnemiesPool => enemiesPool;
+        
+        public SoundConfig SoundConfig => soundConfig;
+        public SoundPool SoundPool => soundPool;
 
     }
     
