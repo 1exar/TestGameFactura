@@ -1,9 +1,11 @@
 ﻿using TestGameFactura.Scripts.Configs.Game;
 using TestGameFactura.Scripts.Configs.Levels;
 using TestGameFactura.Scripts.Configs.Player;
+using TestGameFactura.Scripts.Entities.Player;
 using TestGameFactura.Scripts.Factories;
+using TestGameFactura.Scripts.Managers.GameManagers;
 using TestGameFactura.Scripts.Managers.LevelManager;
-using TestGameFactura.Scripts.Player;
+using Unity.AI.Navigation;
 using UnityEngine;
 using Zenject;
 
@@ -14,7 +16,8 @@ namespace TestGameFactura.Scripts.Installers
         [SerializeField] private PlayerController player;
         [SerializeField] private GameConfig gameConfig;
         [SerializeField] private Transform levelParent;
-
+        [SerializeField] private NavMeshSurface navMeshSurface;
+        
         public override void InstallBindings()
         {
             // GameConfig
@@ -23,9 +26,11 @@ namespace TestGameFactura.Scripts.Installers
             // LevelConfig 
             Container.Bind<LevelConfig>().FromInstance(gameConfig.LevelConfig).AsSingle();
 
-            // EnemyFactory
+            // Factories
             Container.Bind<EnemyFactory>().AsSingle()
-                .WithArguments(gameConfig.EnemyPrefab);
+                .WithArguments(gameConfig.EnemyPrefab, player, gameConfig.EnemyConfig);
+            Container.Bind<BulletFactory>().AsSingle()
+                .WithArguments(gameConfig.PlayerTurretConfig.BulletPrefab);
 
             // LevelManager
             Container.Bind<LevelManager>().AsSingle().NonLazy();
@@ -38,8 +43,14 @@ namespace TestGameFactura.Scripts.Installers
             Container.Bind<Transform>().WithId("StageParent").FromInstance(levelParent);
             
             // Player
-            Container.Bind<PlayerController>().FromInstance(player).AsSingle();
+            Container.Bind<PlayerController>().FromInstance(player).AsSingle().NonLazy();
             Container.Bind<PlayerTurretConfig>().FromInstance(gameConfig.PlayerTurretConfig).AsSingle();
+            
+            //Game Manager
+            Container.BindInterfacesAndSelfTo<GameManager>().AsSingle().NonLazy();
+            
+            //NavMesh
+            Container.Bind<NavMeshSurface>().FromInstance(navMeshSurface).AsSingle();
         }
     } 
 }

@@ -8,13 +8,13 @@ namespace TestGameFactura.Scripts.Configs.Levels
     [CreateAssetMenu(fileName = "LevelConfig", menuName = "Configs/Level Config")]
     public class LevelConfig : ScriptableObject
     {
-        public List<LevelStage> Stages = new();
+        [SerializeField] private List<LevelStage> stages = new();
+        public List<LevelStage> Stages => stages;
     }
 
     [Serializable]
     public class LevelStage
     {
         public int enemiesCount;
-        public int enemiesMaxHp;
     }
 }

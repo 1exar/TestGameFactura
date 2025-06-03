@@ -1,6 +1,8 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using TestGameFactura.Scripts.Configs.Levels;
 using TestGameFactura.Scripts.Factories;
+using Unity.AI.Navigation;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -17,6 +19,8 @@ namespace TestGameFactura.Scripts.Managers.LevelManager
         private readonly float _stageLength;
         private readonly Vector2 _spawnRange;
 
+        private readonly NavMeshSurface _navMeshSurface;
+        
         private readonly List<GameObject> _stageObjects = new();
 
         [Inject]
@@ -26,7 +30,8 @@ namespace TestGameFactura.Scripts.Managers.LevelManager
             [Inject(Id = "StagePrefab")] GameObject stagePrefab,
             [Inject(Id = "StageParent")] Transform stageParent,
             [Inject(Id = "StageLength")] float stageLength,
-            [Inject(Id = "SpawnRange")] Vector2 spawnRange)
+            [Inject(Id = "SpawnRange")] Vector2 spawnRange,
+            NavMeshSurface navMeshSurface)
         {
             _levelConfig = levelConfig;
             _enemyFactory = enemyFactory;
@@ -34,42 +39,61 @@ namespace TestGameFactura.Scripts.Managers.LevelManager
             _stageParent = stageParent;
             _stageLength = stageLength;
             _spawnRange = spawnRange;
+            _navMeshSurface = navMeshSurface;
         }
 
         public void Initialize()
         {
-            LoadLevel(_levelConfig);
+            InitializeAsync().Forget();
         }
 
-        public void LoadLevel(LevelConfig config)
+        private async UniTaskVoid InitializeAsync()
+        {
+            await LoadLevelAsync(_levelConfig);
+        }
+
+        private async UniTask LoadLevelAsync(LevelConfig config)
         {
             ClearLevel();
-            GenerateLevel(config.Stages);
+            var stageData = await GenerateLevelAsync(config.Stages);
+            _navMeshSurface.BuildNavMesh();
+            await SpawnAllEnemiesAsync(stageData);
         }
 
         private void ClearLevel()
         {
             foreach (var obj in _stageObjects)
             {
-                GameObject.Destroy(obj);
+                Object.Destroy(obj);
             }
 
             _stageObjects.Clear();
+            _navMeshSurface.RemoveData();
         }
 
-        private void GenerateLevel(List<LevelStage> stages)
+        private async UniTask<List<(float zCenter, LevelStage stage)>> GenerateLevelAsync(List<LevelStage> stages)
         {
+            var stageData = new List<(float zCenter, LevelStage stage)>();
             for (int stageIndex = 0; stageIndex < stages.Count; stageIndex++)
             {
-                Vector3 stagePosition = Vector3.forward * (_stageLength * stageIndex);
-                var stage = Object.Instantiate(_stagePrefab, stagePosition, _stagePrefab.transform.rotation, _stageParent);
-                _stageObjects.Add(stage);
+                Vector3 stagePosition = _stageParent.transform.position + Vector3.forward * (_stageLength * stageIndex);
+                var stageObj = Object.Instantiate(_stagePrefab, stagePosition, _stagePrefab.transform.rotation, _stageParent);
+                _stageObjects.Add(stageObj);
+                stageData.Add((stagePosition.z, stages[stageIndex]));
+                await UniTask.Yield();
+            }
+            return stageData;
+        }
 
-                SpawnEnemiesForStage(stagePosition.z, stages[stageIndex]);
+        private async UniTask SpawnAllEnemiesAsync(List<(float zCenter, LevelStage stage)> stageData)
+        {
+            foreach (var (zCenter, stage) in stageData)
+            {
+                await SpawnEnemiesForStageAsync(zCenter, stage);
             }
         }
 
-        private void SpawnEnemiesForStage(float stageZCenter, LevelStage stage)
+        private async UniTask SpawnEnemiesForStageAsync(float stageZCenter, LevelStage stage)
         {
             float spawnZMin = stageZCenter - (_stageLength / 2) + _spawnRange.y;
             float spawnZMax = stageZCenter + (_stageLength / 2) - _spawnRange.y;
@@ -80,7 +104,8 @@ namespace TestGameFactura.Scripts.Managers.LevelManager
                 float z = Random.Range(spawnZMin, spawnZMax);
                 Vector3 pos = new Vector3(x, 0f, z);
 
-                _enemyFactory.Create(pos, stage.enemiesMaxHp);
+                _enemyFactory.Create(pos);
+                await UniTask.Yield();
             }
         }
     }

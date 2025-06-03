@@ -17,4 +17,6 @@ MonoBehaviour:
   stageLength: 10.5
   enemySpawnRange: {x: 2, y: 1}
   playerTurretConfig: {fileID: 11400000, guid: 6fb20e27a802b5342b500f6ead146df0, type: 2}
-  enemyPrefab: {fileID: 127864968607388992, guid: 2db40dbe5969cbe48b9f1e5ca49969dc, type: 3}
+  playerSpeed: 2
+  enemyPrefab: {fileID: 2688375297309402399, guid: acf356ffbd8ec4eba88ad16e8b3d1633, type: 3}
+  enemyConfig: {fileID: 11400000, guid: 8c469531e560843e7944c0878c5c7e4e, type: 2}

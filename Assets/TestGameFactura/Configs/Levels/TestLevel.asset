@@ -14,8 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Stages:
   - enemiesCount: 10
-    enemiesMaxHp: 100
+    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 100
-  - enemiesCount: 30
-    enemiesMaxHp: 100
+    enemiesMaxHp: 10
+  - enemiesCount: 10
+    enemiesMaxHp: 10
+  - enemiesCount: 10
+    enemiesMaxHp: 10
+  - enemiesCount: 10
+    enemiesMaxHp: 10
+  - enemiesCount: 10
+    enemiesMaxHp: 10
+  - enemiesCount: 10
+    enemiesMaxHp: 10
+  - enemiesCount: 10
+    enemiesMaxHp: 10
+  - enemiesCount: 10
+    enemiesMaxHp: 10
+  - enemiesCount: 10
+    enemiesMaxHp: 10

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e74326267b4085864f50a46fa51f68, type: 3}
   m_Name: PlayerTurretConfig
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 5837841749598895359, guid: 7fc8666030aff3e46bdf205955c8918c, type: 3}
-  YawLimit: 60
-  RotationSpeed: 200
-  FireCooldown: 0.1
+  bulletPrefab: {fileID: 5837841749598895359, guid: 7fc8666030aff3e46bdf205955c8918c, type: 3}
+  yawLimit: 60
+  rotationSpeed: 1000
+  fireCooldown: 0.5
+  damage: 10
+  bulletSpeed: 2
+  bulletLifeTime: 3

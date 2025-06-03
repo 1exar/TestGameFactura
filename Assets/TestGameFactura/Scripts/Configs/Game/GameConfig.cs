@@ -1,4 +1,5 @@
 ﻿using System;
+using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Configs.Levels;
 using TestGameFactura.Scripts.Configs.Player;
 using UnityEngine;
@@ -18,9 +19,11 @@ namespace TestGameFactura.Scripts.Configs.Game
 
         [Header("Player Settings")]
         [SerializeField] private PlayerTurretConfig playerTurretConfig;
+        [SerializeField] private float playerSpeed;
 
         [Header("Enemy Settings")]
         [SerializeField] private GameObject enemyPrefab;
+        [SerializeField] private EnemyConfig enemyConfig;
 
         public LevelConfig LevelConfig => levelConfig;
         public GameObject LevelStagePrefab => levelStagePrefab;
@@ -28,7 +31,9 @@ namespace TestGameFactura.Scripts.Configs.Game
         public Vector2 EnemySpawnRange => enemySpawnRange;
 
         public PlayerTurretConfig PlayerTurretConfig => playerTurretConfig;
+        public float PlayerSpeed => playerSpeed;
 
+        public EnemyConfig EnemyConfig => enemyConfig;
         public GameObject EnemyPrefab => enemyPrefab;
 
     }
