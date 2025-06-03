@@ -16,6 +16,6 @@ MonoBehaviour:
   yawLimit: 60
   rotationSpeed: 1000
   fireCooldown: 0.5
-  damage: 10
+  damage: 12
   bulletSpeed: 2
   bulletLifeTime: 3

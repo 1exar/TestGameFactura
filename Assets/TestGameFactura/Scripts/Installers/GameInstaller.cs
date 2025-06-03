@@ -1,6 +1,7 @@
 ﻿using TestGameFactura.Scripts.Configs.Game;
 using TestGameFactura.Scripts.Configs.Levels;
 using TestGameFactura.Scripts.Configs.Player;
+using TestGameFactura.Scripts.Entities.Interfaces.Health;
 using TestGameFactura.Scripts.Entities.Player;
 using TestGameFactura.Scripts.Factories;
 using TestGameFactura.Scripts.Managers.GameManagers;
@@ -44,6 +45,7 @@ namespace TestGameFactura.Scripts.Installers
             
             // Player
             Container.Bind<PlayerController>().FromInstance(player).AsSingle().NonLazy();
+            Container.Bind<IHealth>().FromInstance(player).AsSingle();
             Container.Bind<PlayerTurretConfig>().FromInstance(gameConfig.PlayerTurretConfig).AsSingle();
             
             //Game Manager

@@ -12,24 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849e7f2cde0e4c95bbbf68c166875e30, type: 3}
   m_Name: TestLevel
   m_EditorClassIdentifier: 
-  Stages:
+  stages:
   - enemiesCount: 10
-    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 10
   - enemiesCount: 10
-    enemiesMaxHp: 10

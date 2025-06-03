@@ -19,6 +19,7 @@ namespace TestGameFactura.Scripts.Configs.Game
 
         [Header("Player Settings")]
         [SerializeField] private PlayerTurretConfig playerTurretConfig;
+        [SerializeField] private int playerMaxHealth;
         [SerializeField] private float playerSpeed;
 
         [Header("Enemy Settings")]
@@ -32,6 +33,7 @@ namespace TestGameFactura.Scripts.Configs.Game
 
         public PlayerTurretConfig PlayerTurretConfig => playerTurretConfig;
         public float PlayerSpeed => playerSpeed;
+        public int PlayerMaxHealth => playerMaxHealth;
 
         public EnemyConfig EnemyConfig => enemyConfig;
         public GameObject EnemyPrefab => enemyPrefab;

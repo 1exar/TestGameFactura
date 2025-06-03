@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e57e51d2314251a450bf5151f2b5f7, type: 3}
   m_Name: EnemyConfig
   m_EditorClassIdentifier: 
-  moveSpeed: 7
-  damageAmount: 10
+  movementSpeed: 6
+  damage: 10
   aggroDistance: 7
-  maxHealth: 10
+  maxHealth: 20
+  stoppingDinstance: 0.8

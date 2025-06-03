@@ -1,7 +1,9 @@
 using TestGameFactura.Scripts.Configs.Enemy;
 using TestGameFactura.Scripts.Entities.Interfaces.Health;
+using TestGameFactura.Scripts.UI.Slider;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace TestGameFactura.Scripts.Entities.Enemy
 {
@@ -9,6 +11,9 @@ namespace TestGameFactura.Scripts.Entities.Enemy
     public class EnemyController : MonoBehaviour, IHealth
     {
         [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private CustomSlider healthSlider;
+        [Inject] private IHealth _playerHealth;
+        
         private Transform _target;
         private EnemyConfig _config;
 
@@ -27,8 +32,10 @@ namespace TestGameFactura.Scripts.Entities.Enemy
             
             agent.speed = _config.MoveSpeed;
             
-            agent.speed = _config.MaxHealth;
             agent.stoppingDistance = _config.StoppingDinstance;
+
+            healthSlider.Init(_currentHp);
+            healthSlider.gameObject.SetActive(false);
         }
 
         private void Update()
@@ -43,7 +50,7 @@ namespace TestGameFactura.Scripts.Entities.Enemy
             {
                 if (distanceToPlayer < 1f)
                 {
-                    Debug.Log("Add player damage");
+                    _playerHealth.TakeDamage(_damage);
                     Die();
                 }
                 else
@@ -60,7 +67,9 @@ namespace TestGameFactura.Scripts.Entities.Enemy
 
         public void TakeDamage(int dmg)
         {
+            healthSlider.gameObject.SetActive(true);
             _currentHp -= dmg;
+            healthSlider.SetValue(_currentHp);
             if (_currentHp <= 0)
             {
                 Die();
